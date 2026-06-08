@@ -1,0 +1,387 @@
+mostrar "========================================" ;
+mostrar "   BEM-VINDO A CAVERNA DO ESQUECIMENTO  " ;
+mostrar "      Um RPG em MinhLang v0.1           " ;
+mostrar "========================================" ;
+mostrar "" ;
+
+mostrar "--- CRIE SEU PERSONAGEM ---" ;
+mostrar "Classe disponivel: 1 = Guerreiro  2 = Mago  3 = Ladino" ;
+mostrar "" ;
+
+num classe   = 1 ;
+num acao1    = 1 ;
+num acao2    = 2 ;
+num acao3    = 1 ;
+
+mostrar "[ Configuracao atual ]" ;
+frases desc_classe = "Classe escolhida : " + classe ;
+mostrar desc_classe ;
+frases desc_a1 = "Acao na sala 1   : " + acao1 ;
+mostrar desc_a1 ;
+frases desc_a2 = "Acao na sala 2   : " + acao2 ;
+mostrar desc_a2 ;
+frases desc_a3 = "Acao no boss     : " + acao3 ;
+mostrar desc_a3 ;
+mostrar "(Para jogar diferente, edite essas variaveis no topo do arquivo)" ;
+mostrar "" ;
+
+num hp       = 0 ;
+num mana     = 0 ;
+num ataque   = 0 ;
+num defesa   = 0 ;
+num ouro     = 0 ;
+frases nome_classe = "" ;
+
+se ( classe == 1 ) {
+    hp     = 120 ;
+    mana   = 20 ;
+    ataque = 18 ;
+    defesa = 12 ;
+    ouro   = 30 ;
+    nome_classe = "Guerreiro" ;
+}
+se ( classe == 2 ) {
+    hp     = 70 ;
+    mana   = 100 ;
+    ataque = 25 ;
+    defesa = 5 ;
+    ouro   = 20 ;
+    nome_classe = "Mago" ;
+}
+se ( classe == 3 ) {
+    hp     = 90 ;
+    mana   = 40 ;
+    ataque = 22 ;
+    defesa = 8 ;
+    ouro   = 50 ;
+    nome_classe = "Ladino" ;
+}
+
+mostrar "========================================" ;
+frases titulo_heroi = "  HEROI: " + nome_classe ;
+mostrar titulo_heroi ;
+mostrar "========================================" ;
+frases stat_hp  = "  HP     : " + hp ;
+frases stat_mp  = "  Mana   : " + mana ;
+frases stat_atk = "  Ataque : " + ataque ;
+frases stat_def = "  Defesa : " + defesa ;
+frases stat_gld = "  Ouro   : " + ouro ;
+mostrar stat_hp ;
+mostrar stat_mp ;
+mostrar stat_atk ;
+mostrar stat_def ;
+mostrar stat_gld ;
+mostrar "" ;
+
+mostrar "Voce entra na Caverna do Esquecimento..." ;
+mostrar "O vento frio apaga sua tocha por um instante." ;
+mostrar "" ;
+
+mostrar "========================================" ;
+mostrar "  SALA 1 - O Corredor das Sombras" ;
+mostrar "========================================" ;
+mostrar "Um GOBLIN bloqueador surge das trevas!" ;
+mostrar "  HP Goblin: 40  |  Ataque: 8  |  Defesa: 3" ;
+mostrar "" ;
+mostrar "Opcoes: 1 = Atacar  2 = Usar magia  3 = Fugir" ;
+frases acao1_desc = "Sua escolha: " + acao1 ;
+mostrar acao1_desc ;
+mostrar "" ;
+
+num hp_goblin = 40 ;
+num dano_causado = 0 ;
+num dano_recebido = 0 ;
+num vivo = 1 ;
+
+se ( acao1 == 1 ) {
+    mostrar "> Voce avanca com sua arma!" ;
+    dano_causado = ataque - 3 ;
+    se ( dano_causado < 1 ) {
+        dano_causado = 1 ;
+    }
+    hp_goblin = hp_goblin - dano_causado ;
+    frases msg_dano = "  Causou " + dano_causado + " de dano! Goblin HP: " + hp_goblin ;
+    mostrar msg_dano ;
+    se ( hp_goblin > 0 ) {
+        dano_recebido = 8 - defesa ;
+        se ( dano_recebido < 1 ) {
+            dano_recebido = 1 ;
+        }
+        hp = hp - dano_recebido ;
+        frases msg_hp = "  Goblin contra-ataca! Voce recebe " + dano_recebido + " de dano. HP: " + hp ;
+        mostrar msg_hp ;
+        dano_causado = ataque - 3 ;
+        hp_goblin = hp_goblin - dano_causado ;
+        se ( hp_goblin <= 0 ) {
+            mostrar "  Segundo golpe! Goblin derrotado!" ;
+        }
+    } senao {
+        mostrar "  Goblin derrotado no primeiro golpe!" ;
+    }
+    ouro = ouro + 10 ;
+    mostrar "  Voce encontra 10 de ouro no bolso do goblin." ;
+}
+
+se ( acao1 == 2 ) {
+    se ( mana >= 20 ) {
+        mostrar "> Voce conjura Bola de Fogo!" ;
+        dano_causado = ataque + 10 ;
+        hp_goblin = hp_goblin - dano_causado ;
+        mana = mana - 20 ;
+        frases msg_magia = "  Causou " + dano_causado + " de dano magico! Goblin HP: " + hp_goblin ;
+        mostrar msg_magia ;
+        se ( hp_goblin <= 0 ) {
+            mostrar "  Goblin incinerado!" ;
+            ouro = ouro + 10 ;
+        }
+    } senao {
+        mostrar "> Sem mana suficiente! Voce ataca no braco!" ;
+        dano_causado = ataque / 2 ;
+        hp_goblin = hp_goblin - dano_causado ;
+        dano_recebido = 8 - defesa ;
+        se ( dano_recebido < 1 ) {
+            dano_recebido = 1 ;
+        }
+        hp = hp - dano_recebido ;
+        frases msg_fraco = "  Ataque fraco: " + dano_causado + " dano. Voce recebe " + dano_recebido + ". HP: " + hp ;
+        mostrar msg_fraco ;
+    }
+}
+
+se ( acao1 == 3 ) {
+    mostrar "> Voce recua para a entrada!" ;
+    mostrar "  O goblin ri e volta para as sombras." ;
+    mostrar "  Voce perde 5 de ouro na correria." ;
+    ouro = ouro - 5 ;
+    se ( ouro < 0 ) {
+        ouro = 0 ;
+    }
+    vivo = 0 ;
+}
+
+mostrar "" ;
+mostrar "========================================" ;
+mostrar "  SALA 2 - A Camara do Tesouro" ;
+mostrar "========================================" ;
+mostrar "Ha um BAÚ trancado no centro da sala." ;
+mostrar "Uma ARMADILHA de dardos protege a passagem." ;
+mostrar "" ;
+mostrar "Opcoes: 1 = Arrombar o bau  2 = Desarmar armadilha e abrir  3 = Ignorar" ;
+frases acao2_desc = "Sua escolha: " + acao2 ;
+mostrar acao2_desc ;
+mostrar "" ;
+
+num bonus_ataque = 0 ;
+
+se ( acao2 == 1 ) {
+    mostrar "> Voce tenta arrombar o bau com forca bruta!" ;
+    se ( ataque >= 18 ) {
+        mostrar "  Sua forca e suficiente! O bau se abre." ;
+        mostrar "  Dentro: Espada +5 e 25 de ouro!" ;
+        ouro = ouro + 25 ;
+        bonus_ataque = 5 ;
+        ataque = ataque + bonus_ataque ;
+    } senao {
+        mostrar "  O bau resiste! A armadilha dispara!" ;
+        hp = hp - 15 ;
+        frases msg_trap = "  Voce recebe 15 de dano de dardos. HP: " + hp ;
+        mostrar msg_trap ;
+    }
+}
+
+se ( acao2 == 2 ) {
+    mostrar "> Voce examina o mecanismo com cuidado..." ;
+    se ( classe == 3 ) {
+        mostrar "  Dedos ageis de Ladino: armadilha desarmada!" ;
+        mostrar "  O bau se abre: Adaga +7 e 40 de ouro!" ;
+        ouro = ouro + 40 ;
+        bonus_ataque = 7 ;
+        ataque = ataque + bonus_ataque ;
+    } senao {
+        mostrar "  Sem habilidade para isso... a armadilha dispara!" ;
+        hp = hp - 20 ;
+        frases msg_trap2 = "  Voce recebe 20 de dano. HP: " + hp ;
+        mostrar msg_trap2 ;
+        mostrar "  O bau permanece fechado." ;
+    }
+}
+
+se ( acao2 == 3 ) {
+    mostrar "> Voce ignora o bau e segue em frente." ;
+    mostrar "  Prudente... ou covarde?" ;
+}
+
+mostrar "" ;
+frases stat_mid = "  Status atual  HP: " + hp + "  Ataque: " + ataque + "  Ouro: " + ouro ;
+mostrar stat_mid ;
+mostrar "" ;
+
+mostrar "========================================" ;
+mostrar "  SALA FINAL - O Covil do Dragao" ;
+mostrar "========================================" ;
+mostrar "DRAKON, o Dragao Anciao, abre os olhos vermelhos." ;
+mostrar "  HP: 200  |  Ataque: 35  |  Defesa: 15" ;
+mostrar "O chao treme a cada passo da besta." ;
+mostrar "" ;
+mostrar "Opcoes: 1 = Combate direto  2 = Magia suprema  3 = Negociar" ;
+frases acao3_desc = "Sua escolha: " + acao3 ;
+mostrar acao3_desc ;
+mostrar "" ;
+
+num hp_drakon = 200 ;
+num rodada = 1 ;
+num vitoria = 0 ;
+
+se ( acao3 == 1 ) {
+    mostrar "> Voce ergue a arma e avanca!" ;
+    mostrar "" ;
+    enquanto ( hp_drakon > 0 && hp > 0 && rodada <= 8 ) {
+        frases rod_label = "  [ Rodada " + rodada + " ]" ;
+        mostrar rod_label ;
+        dano_causado = ataque - 15 ;
+        se ( dano_causado < 2 ) {
+            dano_causado = 2 ;
+        }
+        hp_drakon = hp_drakon - dano_causado ;
+        frases atk_msg = "  Voce causa " + dano_causado + " dano. Drakon HP: " + hp_drakon ;
+        mostrar atk_msg ;
+        se ( hp_drakon > 0 ) {
+            dano_recebido = 35 - defesa ;
+            se ( dano_recebido < 5 ) {
+                dano_recebido = 5 ;
+            }
+            hp = hp - dano_recebido ;
+            frases def_msg = "  Drakon sopra fogo! Voce recebe " + dano_recebido + ". HP: " + hp ;
+            mostrar def_msg ;
+        }
+        rodada = rodada + 1 ;
+        mostrar "" ;
+    }
+    se ( hp_drakon <= 0 ) {
+        vitoria = 1 ;
+    }
+}
+
+se ( acao3 == 2 ) {
+    mostrar "> Voce canaliza toda sua mana!" ;
+    se ( mana >= 50 ) {
+        num dano_magico = ataque * 3 ;
+        hp_drakon = hp_drakon - dano_magico ;
+        mana = 0 ;
+        frases mag_msg = "  METEORO! " + dano_magico + " de dano! Drakon HP: " + hp_drakon ;
+        mostrar mag_msg ;
+        se ( hp_drakon <= 0 ) {
+            vitoria = 1 ;
+            mostrar "  O dragao cai fulminado pela magia!" ;
+        } senao {
+            mostrar "  Dano massivo, mas o dragao ainda vive!" ;
+            mostrar "  Sem mana, voce combate no braco..." ;
+            dano_recebido = 35 - defesa ;
+            se ( dano_recebido < 5 ) {
+                dano_recebido = 5 ;
+            }
+            hp = hp - dano_recebido ;
+            dano_causado = ataque / 2 ;
+            hp_drakon = hp_drakon - dano_causado ;
+            frases fin_msg = "  Troca final: voce causa " + dano_causado + ", recebe " + dano_recebido + ". HP: " + hp ;
+            mostrar fin_msg ;
+            se ( hp_drakon <= 0 ) {
+                vitoria = 1 ;
+            }
+        }
+    } senao {
+        mostrar "  Sem mana suficiente para o feitico supremo!" ;
+        mostrar "  Voce ataca desesperadamente..." ;
+        enquanto ( hp_drakon > 0 && hp > 0 && rodada <= 6 ) {
+            dano_causado = ataque - 15 ;
+            se ( dano_causado < 2 ) {
+                dano_causado = 2 ;
+            }
+            hp_drakon = hp_drakon - dano_causado ;
+            dano_recebido = 35 - defesa ;
+            se ( dano_recebido < 5 ) {
+                dano_recebido = 5 ;
+            }
+            hp = hp - dano_recebido ;
+            rodada = rodada + 1 ;
+        }
+        se ( hp_drakon <= 0 ) {
+            vitoria = 1 ;
+        }
+    }
+}
+
+se ( acao3 == 3 ) {
+    mostrar "> Voce baixa a arma e fala ao dragao..." ;
+    se ( ouro >= 60 ) {
+        mostrar "  'Aceito sua riqueza, humano insignificante.'" ;
+        frases pago = "  Voce paga " + ouro + " de ouro. O dragao abre passagem." ;
+        mostrar pago ;
+        ouro = 0 ;
+        vitoria = 1 ;
+        hp_drakon = 0 ;
+    } senao {
+        mostrar "  'Ouro insuficiente! Sua vida sera meu pagamento!'" ;
+        dano_recebido = 60 ;
+        hp = hp - dano_recebido ;
+        frases ira_msg = "  Drakon ataca com furia! Voce recebe " + dano_recebido + " dano. HP: " + hp ;
+        mostrar ira_msg ;
+        se ( hp > 0 ) {
+            vitoria = 1 ;
+            mostrar "  Sobrevivendo por um fio, voce foge pela saida lateral!" ;
+        }
+    }
+}
+
+mostrar "" ;
+mostrar "========================================" ;
+mostrar "         RESULTADO FINAL                " ;
+mostrar "========================================" ;
+
+se ( hp <= 0 ) {
+    mostrar "  DERROTA..." ;
+    mostrar "  Voce caiu na Caverna do Esquecimento." ;
+    mostrar "  Sua historia termina aqui, heroi." ;
+    mostrar "" ;
+    mostrar "  Dica: tente outra classe ou outra estrategia!" ;
+}
+
+se ( hp > 0 ) {
+    se ( vitoria == 1 ) {
+        mostrar "  VITORIA! Drakon foi derrotado!" ;
+        mostrar "" ;
+        num ouro_bonus = hp / 2 ;
+        ouro = ouro + ouro_bonus ;
+        frases placar_hp   = "  HP restante   : " + hp ;
+        frases placar_atk  = "  Ataque final  : " + ataque ;
+        frases placar_ouro = "  Ouro total    : " + ouro ;
+        mostrar placar_hp ;
+        mostrar placar_atk ;
+        mostrar placar_ouro ;
+        mostrar "" ;
+        num pontos = hp + ouro + ataque ;
+        frases msg_pts = "  PONTUACAO FINAL: " + pontos ;
+        mostrar msg_pts ;
+        mostrar "" ;
+        se ( pontos >= 300 ) {
+            mostrar "  Classificacao: *** LENDARIO ***" ;
+        }
+        se ( pontos >= 150 && pontos < 300 ) {
+            mostrar "  Classificacao: ** HEROI **" ;
+        }
+        se ( pontos < 150 ) {
+            mostrar "  Classificacao: * AVENTUREIRO *" ;
+        }
+    }
+    se ( vitoria == 0 ) {
+        mostrar "  Voce sobreviveu, mas o dragao tambem." ;
+        mostrar "  A caverna permanece amaldicoadoa..." ;
+    }
+}
+
+mostrar "" ;
+mostrar "========================================" ;
+mostrar "  Obrigado por jogar MinhLang RPG!" ;
+mostrar "  Edite as variaveis no topo e jogue     " ;
+mostrar "  novamente com outras escolhas!          " ;
+mostrar "========================================" ;
