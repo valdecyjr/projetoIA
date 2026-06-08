@@ -1,0 +1,11 @@
+C:\Users\valde\Documents\projetos\projetoIA\agendaDeContatos\src\main\java\com\agenda\contatos\AgendaDeContatosApplication.java
+C:\Users\valde\Documents\projetos\projetoIA\agendaDeContatos\src\main\java\com\agenda\contatos\config\WebConfig.java
+C:\Users\valde\Documents\projetos\projetoIA\agendaDeContatos\src\main\java\com\agenda\contatos\controller\ContatoController.java
+C:\Users\valde\Documents\projetos\projetoIA\agendaDeContatos\src\main\java\com\agenda\contatos\dto\ContatoRequestDTO.java
+C:\Users\valde\Documents\projetos\projetoIA\agendaDeContatos\src\main\java\com\agenda\contatos\dto\ContatoResponseDTO.java
+C:\Users\valde\Documents\projetos\projetoIA\agendaDeContatos\src\main\java\com\agenda\contatos\exception\ErrorResponse.java
+C:\Users\valde\Documents\projetos\projetoIA\agendaDeContatos\src\main\java\com\agenda\contatos\exception\GlobalExceptionHandler.java
+C:\Users\valde\Documents\projetos\projetoIA\agendaDeContatos\src\main\java\com\agenda\contatos\exception\ResourceNotFoundException.java
+C:\Users\valde\Documents\projetos\projetoIA\agendaDeContatos\src\main\java\com\agenda\contatos\model\Contato.java
+C:\Users\valde\Documents\projetos\projetoIA\agendaDeContatos\src\main\java\com\agenda\contatos\repository\ContatoRepository.java
+C:\Users\valde\Documents\projetos\projetoIA\agendaDeContatos\src\main\java\com\agenda\contatos\service\ContatoService.java

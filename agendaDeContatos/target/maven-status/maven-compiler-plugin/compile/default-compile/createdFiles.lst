@@ -1,0 +1,15 @@
+com\agenda\contatos\model\Contato.class
+com\agenda\contatos\exception\ResourceNotFoundException.class
+com\agenda\contatos\exception\ErrorResponse.class
+com\agenda\contatos\dto\ContatoRequestDTO.class
+com\agenda\contatos\exception\GlobalExceptionHandler.class
+com\agenda\contatos\dto\ContatoRequestDTO$ContatoRequestDTOBuilder.class
+com\agenda\contatos\dto\ContatoResponseDTO$ContatoResponseDTOBuilder.class
+com\agenda\contatos\exception\ErrorResponse$ErrorResponseBuilder.class
+com\agenda\contatos\dto\ContatoResponseDTO.class
+com\agenda\contatos\controller\ContatoController.class
+com\agenda\contatos\config\WebConfig.class
+com\agenda\contatos\service\ContatoService.class
+com\agenda\contatos\model\Contato$ContatoBuilder.class
+com\agenda\contatos\repository\ContatoRepository.class
+com\agenda\contatos\AgendaDeContatosApplication.class
